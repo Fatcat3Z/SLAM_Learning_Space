@@ -46,6 +46,36 @@ def choosedataincsv(filepath, savepath, datatype, intervals):
     else:
         for i in y.index:
             df.drop(i, inplace=True)
+    df.rename(columns={'type': 'type',
+                       'Unnamed: 1': 'UTCtime',
+                       'Unnamed: 2': 'latitude',
+                       'Unnamed: 3': 'longtitude',
+                       'Unnamed: 4': 'top',
+                       'Unnamed: 5': 'yaw',
+                       'Unnamed: 6': 'pitch',
+                       'Unnamed: 7': 'velocity angle',
+                       'Unnamed: 8': 'velocity',
+                       'Unnamed: 9': 'roll',
+                       'Unnamed: 10': 'main antenna',
+                       'Unnamed: 11': 'secd antenna',
+                       'Unnamed: 12': 'main satellites',
+                       'Unnamed: 13': 'secd satellites',
+                       'Unnamed: 14': 'east position',
+                       'Unnamed: 15': 'north position',
+                       'Unnamed: 16': 'top position',
+                       'Unnamed: 17': 'east velocity',
+                       'Unnamed: 18': 'north velocity',
+                       'Unnamed: 19': 'top velocity',
+                       'Unnamed: 20': 'save',
+                       'Unnamed: 21': 'check',
+                       'Unnamed: 22': 'rostime',
+                       'Unnamed: 23': 'nan',
+                       'Unnamed: 24': 'nan',
+                       'Unnamed: 25': 'nan',
+                       'Unnamed: 26': 'nan',
+                       'Unnamed: 27': 'nan'},inplace=True)
+    df.drop(['nan'], axis=1, inplace=True)
+    df.drop(['roll'], axis=1, inplace=True)
     df = df.to_csv(savepath, index=0)               
 
 # 生成可以在google earth显示的经纬度信息，将生成的kml文件中的kml数据复制到google earth生成的模板文件中即可
