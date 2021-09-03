@@ -18,5 +18,5 @@ Then we can use evo to evaluation the result.[evo](https://github.com/MichaelGru
 #### choose_csv.py
 Filter the data in .csv file and associate the image file with timestamp(provide the times.txt in DSO). 
 
-#### getrosbaginfo.py
+#### get_rosbag_data.py
 Get infos from rosbag including GPS
