@@ -98,7 +98,23 @@ def writekmlfile(csvfile, kmlfile):
         gpsData = str(lon) + ',' + str(lat) + ',' + str(alt) + ' '
         kml.write(gpsData)
     kml.close()
-               
+
+# 提取GPS数据中的位姿信息，分别是时间戳、北向坐标、东向坐标、天向坐标、qx、qy、qz、qw               
+def getGPSrtkposeinfo(csvfile, speedfile):
+    df = pd.read_csv(csvfile)
+    poseinfo = open(speedfile, 'w')
+    choose_data = df[['rostime', 'east position', 'north position', 'top position']]
+    data = np.array(choose_data)
+    fournum = " 0 0 0 0"
+    # print data
+    for i in data:
+        timestamp = i[0]
+        eastposition = i[1]
+        northposition = i[2]
+        topposition = i[3]
+        posedata = str(timestamp) + ' ' + str(eastposition) + ' ' + str(northposition) + ' ' + str(topposition) + fournum + '\n'
+        poseinfo.write(posedata)
+    poseinfo.close()
                
 # Get GPS infos
 # filpath = "/home/fatcat-lab/Desktop/graduate/SLAM_Workspace/dataset/loop_close/GPSdata.csv"
@@ -112,3 +128,7 @@ def writekmlfile(csvfile, kmlfile):
 # csvfile = '/home/fatcat-lab/Desktop/graduate/SLAM_Workspace/dataset/loop_close/GPSdata_rtk.csv'
 # kmlfile = '/home/fatcat-lab/Desktop/graduate/SLAM_Workspace/dataset/loop_close/gpskml_all'
 # writekmlfile(csvfile, kmlfile)               
+
+# csvfile = '/home/fatcat-lab/Desktop/graduate/SLAM_Workspace/dataset/loop_close/GPSdata_choose_rtk.csv'
+# speedtext = '/home/fatcat-lab/Desktop/graduate/SLAM_Workspace/dataset/loop_close/gpspose.txt'
+# getGPSrtkposeinfo(csvfile, speedtext)               
