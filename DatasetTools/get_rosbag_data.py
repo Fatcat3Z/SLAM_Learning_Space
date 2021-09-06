@@ -48,8 +48,8 @@ def choosedataincsv(filepath, savepath, datatype, intervals):
             df.drop(i, inplace=True)
     df.rename(columns={'type': 'type',
                        'Unnamed: 1': 'UTCtime',
-                       'Unnamed: 2': 'latitude',
-                       'Unnamed: 3': 'longtitude',
+                       'Unnamed: 2': 'longtitude',
+                       'Unnamed: 3': 'latitude',
                        'Unnamed: 4': 'top',
                        'Unnamed: 5': 'yaw',
                        'Unnamed: 6': 'pitch',
@@ -82,18 +82,12 @@ def choosedataincsv(filepath, savepath, datatype, intervals):
 def writekmlfile(csvfile, kmlfile):
     df = pd.read_csv(csvfile)
     kml = open(kmlfile, 'w')
-    choose_data = df[['latitude', 'longtitude', 'top']]
+    choose_data = df[['longtitude', 'latitude', 'top']]
     data = np.array(choose_data)
     # print data
     for i in data:
-        lon = i[1]
-        lon_du = int(lon / 100)
-        lon_fen = lon % 100 / 60
-        lon = lon_du + lon_fen
-        lat = i[0]
-        lat_du = int(lat / 100)
-        lat_fen = lat % 100 / 60
-        lat = lat_du + lat_fen
+        lon = i[0]
+        lat = i[1]
         alt = i[2]
         gpsData = str(lon) + ',' + str(lat) + ',' + str(alt) + ' '
         kml.write(gpsData)
